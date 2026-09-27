@@ -22,3 +22,14 @@ Route::get('/photo/{city?}/{street?}', function ($city = null, $street = 'main')
         'street' => $street,
     ]);
 });
+
+Route::get('/{wysokosc}/{szerokosc}/{glebokosc}', function ($wysokosc, $szerokosc, $glebokosc) {
+    $pojemnosc = $wysokosc * $szerokosc * $glebokosc;
+
+    return view('pojemnosc', [
+        'wysokosc' => $wysokosc,
+        'szerokosc' => $szerokosc,
+        'glebokosc' => $glebokosc,
+        'pojemnosc' => $pojemnosc,
+    ]);
+})->whereNumber(['wysokosc', 'szerokosc', 'glebokosc']);
