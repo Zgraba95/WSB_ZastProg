@@ -11,3 +11,14 @@ Route::get('/witaj', function () {
 });
 
 Route::get('/test', [TestController::class, 'index']);
+
+Route::get('/users/{id}', function ($id) {
+    return "Użytkownik o ID: {$id}";
+});
+
+Route::get('/photo/{city?}/{street?}', function ($city = null, $street = 'main') {
+    return view('photo', [
+        'city' => $city,
+        'street' => $street,
+    ]);
+});
