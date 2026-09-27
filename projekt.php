@@ -1,0 +1,1 @@
+<?php echo "Witaj w moim pierwszym projekcie!"; ?>
