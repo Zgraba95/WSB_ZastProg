@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreBookRequest;
 
 class BookController extends Controller
 {
@@ -11,15 +12,10 @@ class BookController extends Controller
         return view('books.create');
     }
 
-public function store(Request $request)
+    public function store(StoreBookRequest $request)
     {
-        // Walidacja danych wejściowych
-        $validated = $request->validate([
-            'title'        => 'required|string|max:255',
-            'year'         => 'nullable|integer|between:1450,2100',
-            'description'  => 'nullable|string|max:2000',
-            'is_available' => 'nullable|boolean',
-        ]);
+        // Walidacja wykonywana jest automatycznie przez klasę StoreBookRequest
+        $validated = $request->validated();
 
         return redirect('/books')->with(
             'success',
