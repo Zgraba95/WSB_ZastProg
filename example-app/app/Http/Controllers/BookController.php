@@ -29,6 +29,37 @@ class BookController extends Controller
         );
     }
 
+    // Wyświetlenie formularza edycji z przykładowymi danymi książki
+    public function edit($id)
+    {
+        $book = [
+            'id' => $id,
+            'title' => 'Limes inferior',
+            'year' => 1982,
+            'category' => 'Sci-Fi / Fantasy',
+            'description' => 'Klasyka polskiej fantastyki socjologicznej autorstwa Janusza Zajdla.',
+            'is_available' => true,
+        ];
+
+        return view('books.edit', compact('book'));
+    }
+
+    // Obsługa emulowanej metody PUT
+    public function update(Request $request, $id)
+    {
+        $title = $request->input('title');
+        $year = $request->input('year');
+
+        // Przekierowanie na listę z komunikatem
+        return redirect('/books')->with('success', "Zaktualizowano książkę o ID: {$id} (Tytuł: {$title}, Rok: {$year})");
+    }
+
+    // Obsługa emulowanej metody DELETE
+    public function destroy($id)
+    {
+        return redirect('/books')->with('success', "Książka o ID: {$id} została pomyślnie usunięta.");
+    }
+    
     public function index()
     {
         return view('books.index');
