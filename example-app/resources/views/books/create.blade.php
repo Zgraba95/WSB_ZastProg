@@ -4,17 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dodaj książkę</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input[type="text"], input[type="number"], select, textarea {
+            width: 320px; padding: 6px; box-sizing: border-box;
+        }
+        .checkbox-group label { display: inline; font-weight: normal; }
+    </style>
 </head>
 <body>
     <h1>Dodaj nową książkę</h1>
 
     <form action="/books" method="POST">
         @csrf
-        <div>
+
+        <div class="form-group">
             <label for="title">Tytuł książki:</label>
-            <input type="text" id="title" name="title" placeholder="np. Władca Pierścieni" required>
+            <input type="text" id="title" name="title" placeholder="np. Limes inferior" required>
         </div>
-        <br>
+
+        <div class="form-group">
+            <label for="year">Rok wydania:</label>
+            <input type="number" id="year" name="year" placeholder="np. 1982" required>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Kategoria:</label>
+            <select id="category" name="category" required>
+                <option value="Literatura piękna">Literatura piękna</option>
+                <option value="Sci-Fi / Fantasy">Sci-Fi / Fantasy</option>
+                <option value="Biografie">Biografie</option>
+                <option value="Naukowe">Naukowe</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Opis książki:</label>
+            <textarea id="description" name="description" rows="4" placeholder="Krótki opis fabuły..."></textarea>
+        </div>
+
+        <div class="form-group checkbox-group">
+            <input type="checkbox" id="is_available" name="is_available" value="1">
+            <label for="is_available">Dostępność w bibliotece</label>
+        </div>
+
         <button type="submit">Zapisz książkę</button>
     </form>
 </body>
