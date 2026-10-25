@@ -1,6 +1,11 @@
 <?php
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
+
+Route::get('/books/create', [BookController::class, 'create']);
+Route::post('/books', [BookController::class, 'store']);
+Route::get('/books', [BookController::class, 'index']);
 
 Route::get('/', function () {
     return view('strona_glowna');
