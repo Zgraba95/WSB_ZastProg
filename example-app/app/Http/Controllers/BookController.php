@@ -11,21 +11,19 @@ class BookController extends Controller
         return view('books.create');
     }
 
-    public function store(Request $request)
+public function store(Request $request)
     {
-        // 1. Pobranie pojedynczej wartości dla pola title
-        $title = $request->input('title');
+        // Walidacja danych wejściowych
+        $validated = $request->validate([
+            'title'        => 'required|string|max:255',
+            'year'         => 'nullable|integer|between:1450,2100',
+            'description'  => 'nullable|string|max:2000',
+            'is_available' => 'nullable|boolean',
+        ]);
 
-        // 2. Pobranie pełnej tablicy wszystkich przesłanych pól
-        $allData = $request->all();
-
-        // 3. Pobranie wyłącznie podzbioru pól obejmującego title oraz category
-        $subsetData = $request->only(['title', 'category']);
-
-        // Przekierowanie na adres /books z komunikatem zawierającym odebrane dane
         return redirect('/books')->with(
             'success',
-            "Odebrano dane metodą POST! Tytuł: {$title}, Kategoria: {$subsetData['category']}, Rok: {$allData['year']}"
+            "Walidacja przeszła pomyślnie! Dodano książkę: {$validated['title']}"
         );
     }
 
@@ -59,7 +57,7 @@ class BookController extends Controller
     {
         return redirect('/books')->with('success', "Książka o ID: {$id} została pomyślnie usunięta.");
     }
-    
+
     public function index()
     {
         return view('books.index');
